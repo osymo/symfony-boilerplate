@@ -50,7 +50,7 @@ final class UnicityValidator extends ConstraintValidator
         $existingObject = $this->tdbmService->findObject(
             mainTable            : $constraint->table,
             filter               : [$constraint->column . ' = :value'],
-            parameters           : ['value' => $value->$getterValue(),],
+            parameters           : ['value' => $value->$getterValue()],
             additionalTablesFetch: [],
             className            : $constraint->className,
             resultIteratorClass  : ResultIterator::class
@@ -67,7 +67,6 @@ final class UnicityValidator extends ConstraintValidator
         $this->context
             ->buildViolation($constraint->message)
             ->atPath($constraint->column)
-            ->addViolation()
-        ;
+            ->addViolation();
     }
 }
