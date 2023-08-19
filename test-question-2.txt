@@ -1,0 +1,16 @@
+On the webapp folder in file ConfirmDelete.vue 
+we have a template with the delete button in it,
+once the button is clicked the variable "showConfirmDeleteForm" is set to true
+then a confirmation message appears next to an input, a "cancel button" and a second "delete button".
+When the user type "confirm" in that input and click on the second delete button
+the "onSubmit" method in the same file is called, 
+then the "onConfirm" method is called
+then the "onDelete" methode from the file "_id.vue" is called
+then the "DeleteUserMutation" method is called with the userId
+then the methode "deleteUser" in the file "DeleteUser.php" is called.
+
+This method checks if the logged user has the auhtoriation to delete the target user,
+then it deletes the profile picture of the user
+then it deletes the user from the database using the delete methode of the "BaseUserDao.php" 
+this method calls the the "deleteCascade" method of the "TDBMService" class
+
