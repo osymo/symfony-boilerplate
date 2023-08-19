@@ -170,7 +170,7 @@ export default {
           profilePicture: this.form.profilePicture,
         })
 
-        this.genericSuccessToast()
+        this.genericSuccessToast('createUserSuccess')
 
         this.$router.push(
           this.localePath({

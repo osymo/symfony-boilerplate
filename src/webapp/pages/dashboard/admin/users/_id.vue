@@ -223,7 +223,7 @@ export default {
 
         this.currentProfilePicture = result.updateUser.profilePicture
         this.form.profilePicture = null
-        this.genericSuccessToast()
+        this.genericSuccessToast('updateUserSuccess')
 
         // Same user as authenticated one.
         if (this.selfUpdate) {

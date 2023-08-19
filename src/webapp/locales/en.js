@@ -88,6 +88,8 @@ export default {
   mixins: {
     generic_toast: {
       success_message: 'Success 🎉',
+      create_user_success_msg: 'User created with success ✅',
+      update_user_success_msg: 'User updated with success ✅',
     },
   },
   // Translations of your pages.

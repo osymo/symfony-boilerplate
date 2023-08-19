@@ -166,8 +166,9 @@ export default {
     devModeAllowed: process.env.LOGROCKET_DEV_MODE_ALLOWED || false,
   },
   toast: {
-    position: 'bottom-center',
+    position: 'top-center',
     duration: 5000,
+    className: 'toast-custom-classname',
   },
   /*
    ** Build configuration
