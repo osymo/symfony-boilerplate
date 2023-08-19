@@ -106,7 +106,12 @@
 import { Form } from '@/mixins/form'
 import { List, defaultItemsPerPage, calculateOffset } from '@/mixins/list'
 import { Roles } from '@/mixins/roles'
-import { EMAIL, FIRST_NAME, LAST_NAME } from '@/enums/filters/users-sort-by'
+import {
+  EMAIL,
+  FIRST_NAME,
+  LAST_NAME,
+  ROLE,
+} from '@/enums/filters/users-sort-by'
 import { UsersQuery } from '@/graphql/users/users.query'
 import { Images } from '@/mixins/images'
 
@@ -152,7 +157,11 @@ export default {
           label: this.$t('common.user.last_name.label'),
           sortable: true,
         },
-        { key: 'email', label: this.$t('common.email.label'), sortable: true },
+        {
+          key: 'email',
+          label: this.$t('common.email.label'),
+          sortable: true,
+        },
         {
           key: 'locale',
           label: this.$t('common.user.locale.label'),
@@ -161,7 +170,7 @@ export default {
         {
           key: 'role',
           label: this.$t('common.user.role.label'),
-          sortable: false,
+          sortable: true,
         },
         {
           key: 'actions',
@@ -173,6 +182,7 @@ export default {
         firstName: FIRST_NAME,
         lastName: LAST_NAME,
         email: EMAIL,
+        role: ROLE,
       },
     }
   },
