@@ -17,10 +17,13 @@
                 autofocus
                 trim
                 required
-                :state="formState('firstName')"
+                :state="formState('firstName') || firstNameValidationState"
               />
               <b-form-invalid-feedback :state="formState('firstName')">
                 <ErrorsList :errors="formErrors('firstName')" />
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback :state="firstNameValidationState">
+                This value should be alphanumerical
               </b-form-invalid-feedback>
             </b-form-group>
           </b-col>
@@ -37,10 +40,13 @@
                 :placeholder="$t('common.user.last_name.placeholder')"
                 trim
                 required
-                :state="formState('lastName')"
+                :state="formState('lastName') || lastNameValidationState"
               />
               <b-form-invalid-feedback :state="formState('lastName')">
                 <ErrorsList :errors="formErrors('lastName')" />
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback :state="lastNameValidationState">
+                This value should be alphanumerical
               </b-form-invalid-feedback>
             </b-form-group>
           </b-col>
@@ -196,11 +202,29 @@ export default {
         role: null,
         profilePicture: null,
       },
+      firstNameValidationState: null,
+      lastNameValidationState: null,
     }
   },
   computed: {
     selfUpdate() {
       return this.user.id === this.$route.params.id
+    },
+    firstNameValue() {
+      return this.form.firstName
+    },
+    lastNameValue() {
+      return this.form.lastName
+    },
+  },
+  watch: {
+    firstNameValue(val) {
+      this.validateFirstName(val)
+      this.form.firstName = val
+    },
+    lastNameValue(val) {
+      this.form.lastName = val
+      this.validateLastName(val)
     },
   },
   methods: {
@@ -250,6 +274,40 @@ export default {
       } finally {
         this.hideGlobalOverlay()
       }
+    },
+    validateFirstName(val) {
+      if (!/^[-a-zA-Z0-9 ]*$/.test(val)) {
+        this.firstNameValidationState = false
+
+        setTimeout(() => {
+          this.form.firstName = this.removeSpecialChars(val)
+        }, 1000)
+      } else {
+        this.firstNameValidationState = true
+      }
+    },
+    validateLastName(val) {
+      if (!/^[-a-zA-Z0-9 ]*$/.test(val)) {
+        this.lastNameValidationState = false
+
+        setTimeout(() => {
+          this.form.lastName = this.removeSpecialChars(val)
+        }, 1000)
+      } else {
+        this.lastNameValidationState = true
+      }
+    },
+    removeSpecialChars(val) {
+      let sanitized = ''
+      const alphanumericalChars = ' abcdefghijklmnopqrstuvwxyz0123456789-'
+
+      val.split('').forEach((c) => {
+        if (alphanumericalChars.includes(c.toLowerCase())) {
+          sanitized += c
+        }
+      })
+
+      return sanitized
     },
   },
 }
