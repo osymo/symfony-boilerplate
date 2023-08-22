@@ -9,6 +9,8 @@ export const CreateUserMutation = gql`
     $locale: Locale!
     $role: Role!
     $profilePicture: Upload
+    $country: String!
+    $phoneNumber: Float!
   ) {
     createUser(
       firstName: $firstName
@@ -17,6 +19,8 @@ export const CreateUserMutation = gql`
       locale: $locale
       role: $role
       profilePicture: $profilePicture
+      country: $country
+      phoneNumber: $phoneNumber
     ) {
       ...MeFragment
     }

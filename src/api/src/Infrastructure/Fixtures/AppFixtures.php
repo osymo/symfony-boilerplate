@@ -47,7 +47,9 @@ final class AppFixtures extends Fixtures
             $this->faker->lastName,
             'admin@admin.com',
             Locale::EN(),
-            Role::ADMINISTRATOR()
+            Role::ADMINISTRATOR(),
+            $this->faker->country,
+            335566778899
         );
         $admin->setPassword('admin');
 
@@ -56,8 +58,11 @@ final class AppFixtures extends Fixtures
             $this->faker->lastName,
             'user@user.com',
             Locale::EN(),
-            Role::USER()
+            Role::USER(),
+            $this->faker->country,
+            330011223344
         );
+
         $user->setPassword('user');
 
         $this->userDao->save($admin);

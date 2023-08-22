@@ -31,7 +31,9 @@ final class Version20200424154558 extends AbstractMigration
             ->column('password')->string(255)->null()->default(null)
             ->column('locale')->string(2)->notNull()
             ->column('profile_picture')->string(255)->null()->default(null)
-            ->column('role')->string(255)->notNull();
+            ->column('role')->string(255)->notNull()
+            ->column('country')->string(255)->notNull()
+            ->column('phone_number')->float()->notNull();
 
         $db->table('reset_password_tokens')
             ->column('id')->guid()->primaryKey()->comment('@UUID')

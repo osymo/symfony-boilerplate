@@ -51,6 +51,16 @@ export default {
         administrator: 'Administateur',
         user: 'Utilisateur',
       },
+      country: {
+        label: 'Pays',
+        label_required: 'Pays *',
+        placeholder: 'Entrer un pays',
+      },
+      phoneNumber: {
+        label: 'Téléphone',
+        label_required: 'Téléphone *',
+        placeholder: 'Entrer un téléphone',
+      },
       profile_picture: 'Photo de profil',
     },
     nav: {

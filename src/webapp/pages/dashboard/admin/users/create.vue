@@ -102,6 +102,57 @@
           </b-form-group>
         </b-col>
       </b-form-row>
+      <!-- new inputs start -->
+      <b-form-row>
+        <b-col md="6">
+          <b-form-group
+            id="input-group-country"
+            :label="$t('common.user.country.label_required')"
+            label-for="input-country"
+          >
+            <b-form-input
+              id="input-country"
+              v-model="form.country"
+              type="text"
+              :placeholder="$t('common.user.country.placeholder')"
+              autofocus
+              trim
+              required
+              :state="formState('country') || countryValidationState"
+            />
+            <b-form-invalid-feedback :state="formState('country')">
+              <ErrorsList :errors="formErrors('country')" />
+            </b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="countryValidationState">
+              This value must contain only letters or hyphen
+            </b-form-invalid-feedback>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group
+            id="input-group-phoneNumber"
+            :label="$t('common.user.phoneNumber.label_required')"
+            label-for="input-last-name"
+          >
+            <b-form-input
+              id="input-phoneNumber"
+              v-model="form.phoneNumber"
+              type="text"
+              :placeholder="$t('common.user.phoneNumber.placeholder')"
+              trim
+              required
+              :state="formState('phoneNumber') || phoneNumberValidationState"
+            />
+            <b-form-invalid-feedback :state="formState('phoneNumber')">
+              <ErrorsList :errors="formErrors('phoneNumber')" />
+            </b-form-invalid-feedback>
+            <b-form-invalid-feedback :state="phoneNumberValidationState">
+              This value must contain only numbers
+            </b-form-invalid-feedback>
+          </b-form-group>
+        </b-col>
+      </b-form-row>
+      <!-- new inputs end-->
       <b-form-group
         id="input-group-profile-picture"
         :label="$t('common.user.profile_picture')"
@@ -152,8 +203,28 @@ export default {
         locale: null,
         role: null,
         profilePicture: null,
+        country: '',
+        phoneNumber: null,
       },
+      countryValidationState: null,
+      phoneNumberValidationState: null,
     }
+  },
+  computed: {
+    countryValue() {
+      return this.form.country
+    },
+    phoneNumberValue() {
+      return this.form.phoneNumber
+    },
+  },
+  watch: {
+    countryValue(val) {
+      this.validateCountry(val)
+    },
+    phoneNumberValue(val) {
+      this.validatePhoneNumber(val)
+    },
   },
   methods: {
     async onSubmit() {
@@ -168,6 +239,8 @@ export default {
           locale: this.form.locale,
           role: this.form.role,
           profilePicture: this.form.profilePicture,
+          country: this.form.country,
+          phoneNumber: Number(this.form.phoneNumber),
         })
 
         this.genericSuccessToast('createUserSuccess')
@@ -183,6 +256,52 @@ export default {
       } finally {
         this.hideGlobalOverlay()
       }
+    },
+    validateCountry(val) {
+      if (!/^[-a-zA-Z ]*$/.test(val)) {
+        this.countryValidationState = false
+
+        setTimeout(() => {
+          this.form.country = this.sanitizeCountry(val)
+        }, 1000)
+      } else {
+        this.countryValidationState = true
+      }
+    },
+    validatePhoneNumber(val) {
+      if (!/^[0-9]*$/.test(val)) {
+        this.phoneNumberValidationState = false
+
+        setTimeout(() => {
+          this.form.phoneNumber = this.sanitizePhoneNumber(val)
+        }, 1000)
+      } else {
+        this.phoneNumberValidationState = true
+      }
+    },
+    sanitizeCountry(val) {
+      let sanitized = ''
+      const letters = ' abcdefghijklmnopqrstuvwxyz-'
+
+      val.split('').forEach((c) => {
+        if (letters.includes(c.toLowerCase())) {
+          sanitized += c
+        }
+      })
+
+      return sanitized
+    },
+    sanitizePhoneNumber(val) {
+      let sanitized = ''
+      const digits = '0123456789'
+
+      val.split('').forEach((c) => {
+        if (digits.includes(c)) {
+          sanitized += c
+        }
+      })
+
+      return sanitized
     },
   },
 }

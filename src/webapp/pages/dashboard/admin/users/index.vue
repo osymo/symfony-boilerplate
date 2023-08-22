@@ -173,6 +173,16 @@ export default {
           sortable: true,
         },
         {
+          key: 'country',
+          label: this.$t('common.user.country.label'),
+          sortable: false,
+        },
+        {
+          key: 'phoneNumber',
+          label: this.$t('common.user.phoneNumber.label'),
+          sortable: false,
+        },
+        {
           key: 'actions',
           label: this.$t('common.list.actions'),
           sortable: false,

@@ -220,10 +220,8 @@ export default {
   watch: {
     firstNameValue(val) {
       this.validateFirstName(val)
-      this.form.firstName = val
     },
     lastNameValue(val) {
-      this.form.lastName = val
       this.validateLastName(val)
     },
   },

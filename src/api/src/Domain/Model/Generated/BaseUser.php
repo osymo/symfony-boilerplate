@@ -37,8 +37,10 @@ abstract class BaseUser extends \TheCodingMachine\TDBM\AbstractTDBMObject implem
      * @param string $email
      * @param string $locale
      * @param string $role
+     * @param string $country
+     * @param float $phoneNumber
      */
-    public function __construct(string $firstName, string $lastName, string $email, string $locale, string $role)
+    public function __construct(string $firstName, string $lastName, string $email, string $locale, string $role, string $country, float $phoneNumber)
     {
         parent::__construct();
         $this->setFirstName($firstName);
@@ -46,6 +48,8 @@ abstract class BaseUser extends \TheCodingMachine\TDBM\AbstractTDBMObject implem
         $this->setEmail($email);
         $this->setLocale($locale);
         $this->setRole($role);
+        $this->setCountry($country);
+        $this->setPhoneNumber($phoneNumber);
         $this->setId(Uuid::uuid1()->toString());
     }
 
@@ -210,6 +214,46 @@ abstract class BaseUser extends \TheCodingMachine\TDBM\AbstractTDBMObject implem
     }
 
     /**
+     * The getter for the "country" column.
+     *
+     * @return string
+     */
+    public function getCountry() : string
+    {
+        return $this->get('country', 'users');
+    }
+
+    /**
+     * The setter for the "country" column.
+     *
+     * @param string $country
+     */
+    public function setCountry(string $country) : void
+    {
+        $this->set('country', $country, 'users');
+    }
+
+    /**
+     * The getter for the "phone_number" column.
+     *
+     * @return float
+     */
+    public function getPhoneNumber() : float
+    {
+        return (float) $this->get('phone_number', 'users');
+    }
+
+    /**
+     * The setter for the "phone_number" column.
+     *
+     * @param float $phoneNumber
+     */
+    public function setPhoneNumber(float $phoneNumber) : void
+    {
+        $this->set('phone_number', $phoneNumber, 'users');
+    }
+
+    /**
      * Returns the ResetPasswordToken pointing to this bean via the user_id column.
      *
      * @
@@ -253,6 +297,8 @@ abstract class BaseUser extends \TheCodingMachine\TDBM\AbstractTDBMObject implem
         $array['locale'] = $this->getLocale();
         $array['profilePicture'] = $this->getProfilePicture();
         $array['role'] = $this->getRole();
+        $array['country'] = $this->getCountry();
+        $array['phoneNumber'] = $this->getPhoneNumber();
         return $array;
     }
 

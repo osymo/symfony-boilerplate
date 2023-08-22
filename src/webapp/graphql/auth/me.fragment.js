@@ -9,5 +9,7 @@ export const MeFragment = gql`
     locale
     profilePicture
     role
+    country
+    phoneNumber
   }
 `

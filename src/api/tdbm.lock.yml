@@ -89,6 +89,13 @@ schema:
           type: string
           length: 255
           not_null: true
+        country:
+          type: string
+          length: 255
+          not_null: true
+        phone_number:
+          type: float
+          not_null: true
       indexes:
         email:
           column: email

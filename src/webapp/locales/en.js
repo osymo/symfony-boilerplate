@@ -51,6 +51,16 @@ export default {
         administrator: 'Administrator',
         user: 'User',
       },
+      country: {
+        label: 'Country',
+        label_required: 'Country *',
+        placeholder: 'Enter a country',
+      },
+      phoneNumber: {
+        label: 'Phone',
+        label_required: 'Phone *',
+        placeholder: 'Enter a phone number',
+      },
       profile_picture: 'Profile picture',
     },
     nav: {

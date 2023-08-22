@@ -46,7 +46,9 @@ final class CreateUser
         string $email,
         Locale $locale,
         Role $role,
-        ?UploadedFileInterface $profilePicture = null
+        ?UploadedFileInterface $profilePicture = null,
+        string $country,
+        float $phoneNumber
     ): User {
         $storable = null;
         if ($profilePicture !== null) {
@@ -59,7 +61,9 @@ final class CreateUser
             $email,
             $locale,
             $role,
-            $storable
+            $storable,
+            $country,
+            $phoneNumber
         );
     }
 
@@ -73,14 +77,18 @@ final class CreateUser
         string $email,
         Locale $locale,
         Role $role,
-        ?ProfilePicture $profilePicture = null
+        ?ProfilePicture $profilePicture = null,
+        string $country,
+        float $phoneNUmber,
     ): User {
         $user = new User(
             $firstName,
             $lastName,
             $email,
             $locale,
-            $role
+            $role,
+            $country,
+            $phoneNUmber
         );
 
         if ($profilePicture === null) {

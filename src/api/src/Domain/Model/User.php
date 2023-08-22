@@ -40,6 +40,8 @@ use const PASSWORD_DEFAULT;
 #[GraphQLite\SourceField(name: 'locale')]
 #[GraphQLite\SourceField(name: 'profilePicture')]
 #[GraphQLite\SourceField(name: 'role')]
+#[GraphQLite\SourceField(name: 'country')]
+#[GraphQLite\SourceField(name: 'phoneNumber')]
 #[GraphQLite\SourceField(name: 'activated')]
 class User extends BaseUser implements UserInterface, Serializable, EquatableInterface
 {
@@ -48,14 +50,18 @@ class User extends BaseUser implements UserInterface, Serializable, EquatableInt
         string $lastName,
         string $email,
         Locale $locale,
-        Role $role
+        Role $role,
+        string $country,
+        float $phoneNumber
     ) {
         parent::__construct(
             firstName: $firstName,
             lastName : $lastName,
             email    : $email,
             locale   : strval($locale),
-            role     : strval($role)
+            role     : strval($role),
+            country  : $country,
+            phoneNumber: $phoneNumber
         );
     }
 
@@ -112,6 +118,23 @@ class User extends BaseUser implements UserInterface, Serializable, EquatableInt
     public function getRole(): string
     {
         return parent::getRole();
+    }
+
+    /**
+     * @Assert\NotBlank(message="not_blank")
+     * @Assert\Length(max=255, maxMessage="max_length_255")
+     */
+    public function getCountry(): string
+    {
+        return parent::getCountry();
+    }
+
+    /**
+     * @Assert\NotBlank(message="not_blank")
+     */
+    public function getPhoneNumber(): float
+    {
+        return parent::getPhoneNumber();
     }
 
     public function isActivated(): bool
